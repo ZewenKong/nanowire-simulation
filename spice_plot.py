@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
-def SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_i, s):
+def SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s):
 
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5, 1, figsize=(10, 8))
     x_max = max([x.get_wave(step).max() for step in range(len(s))])
@@ -36,10 +37,13 @@ def SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_i, s):
     ax4.set_ylabel('Voltage')
 
     for step in range(len(s)):
-        ax5.plot(x.get_wave(step), y_i.get_wave(step), color='black', linewidth=0.5)
+        v_values = y_v.get_wave(step)
+        i_values = y_i.get_wave(step)
+        y_divided = [0 if i == 0 or np.isnan(i) else v / i for v, i in zip(v_values, i_values)]
+        ax5.plot(x.get_wave(step), y_divided, color='black', linewidth=0.5)
     ax5.grid(False)
     ax5.set_xlim(left=0, right=x_max)
-    ax5.set_ylabel('Current')
+    ax5.set_ylabel('Resistance')
 
     plt.tight_layout()
     plot_path = os.path.join(output_plot_path, 'spice_plot.png')

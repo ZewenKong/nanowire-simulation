@@ -24,9 +24,9 @@ def main():
     gaussian_plot.GaussianPlot(output_plot_path, t_points, v_lvls)
 
     # Run the spice
-    x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_i, s = spice_run.SpiceRun(asc_path, net_path, output_path, output_plot_path, t)
+    x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s = spice_run.SpiceRun(asc_path, net_path, output_path, output_plot_path, t)
     # Plot and save
-    spice_plot.SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_i, s)
+    spice_plot.SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s)
 
 if __name__ == "__main__":
     main()

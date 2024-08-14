@@ -34,8 +34,9 @@ def SpiceRun(asc_path, net_path, output_path, output_plot_path, t):
 
     y_lvl = LTR.get_trace("V(volt-lvl)")        # voltage level
 
+    y_v = LTR.get_trace("V(volt-r4)")
     y_i = LTR.get_trace("I(R4)")               # current level
 
     s = LTR.get_steps()
 
-    return x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_i, s
+    return x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s

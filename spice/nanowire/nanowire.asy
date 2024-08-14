@@ -1,0 +1,27 @@
+Version 4
+SymbolType BLOCK
+LINE Normal 16 48 16 -48
+LINE Normal -16 48 -16 -48
+LINE Normal 0 48 0 -48
+RECTANGLE Normal 20 44 12 -44
+SYMATTR SpiceModel nanowire
+SYMATTR ModelFile nanowire.lib
+SYMATTR Prefix X
+PIN -16 -48 NONE 8
+PINATTR PinName g1
+PINATTR SpiceOrder 1
+PIN -16 48 NONE 8
+PINATTR PinName g2
+PINATTR SpiceOrder 2
+PIN 0 -48 NONE 8
+PINATTR PinName n1
+PINATTR SpiceOrder 3
+PIN 0 48 NONE 8
+PINATTR PinName n2
+PINATTR SpiceOrder 4
+PIN 16 -48 NONE 8
+PINATTR PinName n3
+PINATTR SpiceOrder 5
+PIN 16 48 NONE 8
+PINATTR PinName n4
+PINATTR SpiceOrder 6

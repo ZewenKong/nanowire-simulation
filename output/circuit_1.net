@@ -1,0 +1,27 @@
+* C:\Users\zewen\Downloads\nanowirepp\spice\circuit.asc
+I1 N004 0 PWL file=C:\Users\zewen\Downloads\nanowirepp\pwl\gaussian.txt
+V1 N001 0 SINE(0 2 10MEG 0 0 0)
+R1 N001 N002 100k
+XU1 N002 0 unused N004 result-pulse 0 nanowire
+B1 N003 0 V=V(result-pulse)
+A1 N003 0 0 0 0 pwm-low-1 pwm-high-1 0 SCHMITT vt=1m vh=0 vhigh=3 vlow=0
+A2 N003 0 0 0 0 pwm-low-2 pwm-high-2 0 SCHMITT vt=-1m vh=0 vhigh=3 vlow=0
+B2 pwm-3V 0 V=V(pwm-high-1)+V(pwm-low-2)
+B3 N005 0 V=V(pwm-3V)
+V2 N008 0 0
+C2 volt-lvl N008 1µ
+C1 N006 N005 10
+D1 N008 N006 1N5817
+D2 N006 volt-lvl 1N5817
+V3 N007 0 2
+R3 volt-R3 0 R=100-10*V(volt-lvl)
+R2 N007 volt-R3 100
+V4 volt-R4 0 2
+R4 volt-R4 0 R=100-10*V(volt-lvl)
+.model D D
+.lib C:\Users\zewen\AppData\Local\LTspiceXVII\lib\cmp\standard.dio
+;.tran 0 500n 0 1p uic
+.lib nanowire.lib
+.tran 0 1e-06 0 1 uic
+.backanno
+.end

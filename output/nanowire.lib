@@ -1,0 +1,17 @@
+*** Superconducting Nanowire 1 ***
+
+* supply with an A.C. source
+* study on the superconducting nanowire communication with
+* moire synapse transistor integration
+
+.subckt nanowire g1 g2 n1 n2 n3 n4
++Rsc=1f
++Rn=1500
++Rct=10u
+
+* superconducting property
+R1 g1 g2 1
+V1 n1 n2 0
+B1 n3 n4 V=IF((abs(I(R1))<I(V1)), I(R1)*(Rsc+Rct), I(R1)*(Rn+Rct))
+
+.ends superconductor

@@ -6,7 +6,7 @@ def Gaussian(Ic_0, t):
 
     # Poisson Distribution Parameters
     u = Ic_0        # mean value
-    sigma = 0.05*u # standard deviation
+    sigma = 0.015*u # standard deviation (the variable range)
 
     # LTspice Simulation
     t_simulation = t

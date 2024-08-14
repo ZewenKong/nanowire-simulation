@@ -7,20 +7,20 @@ WARNING: Less than two connections to node PWM-LOW-1.  This node is used by A1.
 WARNING: Less than two connections to node PWM-HIGH-2.  This node is used by A2.
 Per .tran options, skipping operating point for transient analysis.
 
-Date: Wed Aug 14 14:03:34 2024
-Total elapsed time: 0.237 seconds.
+Date: Wed Aug 14 19:15:27 2024
+Total elapsed time: 0.062 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 52842
-traniter = 52842
-tranpoints = 16400
-accept = 13439
-rejected = 2961
+totiter = 18270
+traniter = 18270
+tranpoints = 7193
+accept = 6514
+rejected = 679
 matrix size = 29
 fillins = 1
 solver = Normal
 Matrix Compiler1: 774 bytes object code size  0.2/0.1/[0.1]
-Matrix Compiler2: 1.63 KB object code size  0.2/0.2/[0.1]
+Matrix Compiler2: 1.63 KB object code size  0.1/0.2/[0.1]
 

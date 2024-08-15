@@ -19,14 +19,18 @@ def main():
     Ic_0 = nanowire.Nanowire()
 
     # Return time points and voltage level for critical current in gaussian distribution
-    t_points, v_lvls = gaussian.Gaussian(Ic_0, t)
+    t_points_1, v_lvls_1 = gaussian.Gaussian(Ic_0, t, 'gaussian_1') # nanowire 1
+    t_points_2, v_lvls_2 = gaussian.Gaussian(Ic_0, t, 'gaussian_2') # nanowire 2
+
     # Plot and save
-    gaussian_plot.GaussianPlot(output_plot_path, t_points, v_lvls)
+    gaussian_plot.GaussianPlot(output_plot_path, t_points_1, v_lvls_1, 'gaussian_current_1.png')
+    gaussian_plot.GaussianPlot(output_plot_path, t_points_2, v_lvls_2, 'gaussian_current_2.png')
 
     # Run the spice
-    x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s = spice_run.SpiceRun(asc_path, net_path, output_path, output_plot_path, t)
+    nanowire_1, nanowire_2 = spice_run.SpiceRun(asc_path, net_path, output_path, output_plot_path, t)
+
     # Plot and save
-    spice_plot.SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, s)
+    spice_plot.SpicePlot(output_plot_path, nanowire_1, nanowire_2)
 
 if __name__ == "__main__":
     main()

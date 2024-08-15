@@ -4,7 +4,7 @@ import matplotlib.cm as cm
 from scipy.stats import norm
 import os
 
-def GaussianPlot(output_plot_path, t_points, v_lvls):
+def GaussianPlot(output_plot_path, t_points, v_lvls, filename):
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
 
@@ -27,6 +27,6 @@ def GaussianPlot(output_plot_path, t_points, v_lvls):
     ax2.plot(x, p, 'r', linewidth=1)
 
     plt.tight_layout()
-    plot_path = os.path.join(output_plot_path, 'gaussian_current.png')
+    plot_path = os.path.join(output_plot_path, f'{filename}')
     plt.savefig(plot_path, dpi=500)
     plt.close()

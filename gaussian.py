@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 
-def Gaussian(Ic_0, t):
+def Gaussian(Ic_0, t, filename):
 
     # Poisson Distribution Parameters
     u = Ic_0        # mean value
@@ -20,7 +20,7 @@ def Gaussian(Ic_0, t):
     pwl_data = np.column_stack((t_points, v_lvls))
 
     os.makedirs("pwl", exist_ok=True)
-    with open("pwl/gaussian.txt", "w") as file:
+    with open(f"pwl/{filename}.txt", "w") as file:
         for t, v in zip(t_points, v_lvls):
             file.write(f"{t:.12e} {v:.12e}\n")
     

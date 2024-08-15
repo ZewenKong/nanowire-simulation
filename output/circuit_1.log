@@ -1,26 +1,30 @@
 Circuit: * C:\Users\zewen\Downloads\nanowirepp\spice\circuit.asc
 
 WARNING: Node UNUSED is floating.
+WARNING: Node UNUSED-2 is floating.
 
 WARNING: Less than two connections to node UNUSED.  This node is used by V:U1:1.
 WARNING: Less than two connections to node PWM-LOW-1.  This node is used by A1.
 WARNING: Less than two connections to node PWM-HIGH-2.  This node is used by A2.
-Per .tran options, skipping operating point for transient analysis.
+WARNING: Less than two connections to node UNUSED-2.  This node is used by V:U2:1.
+WARNING: Less than two connections to node PWM-LOW-1-2.  This node is used by A3.
+WARNING: Less than two connections to node PWM-HIGH-2-2.  This node is used by A4.
+Direct Newton iteration for .op point succeeded.
 
-Date: Thu Aug 15 11:10:29 2024
-Total elapsed time: 0.116 seconds.
+Date: Thu Aug 15 14:58:31 2024
+Total elapsed time: 0.203 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 23730
-traniter = 23730
-tranpoints = 8874
-accept = 7831
-rejected = 1043
-matrix size = 29
-fillins = 1
+totiter = 34364
+traniter = 34352
+tranpoints = 11894
+accept = 10117
+rejected = 1777
+matrix size = 55
+fillins = 2
 solver = Normal
-Matrix Compiler1: 774 bytes object code size  0.3/0.1/[0.1]
-Matrix Compiler2: 1.63 KB object code size  0.2/0.3/[0.1]
+Matrix Compiler1: 1.57 KB object code size  0.5/0.2/[0.2]
+Matrix Compiler2: 3.08 KB object code size  0.3/0.5/[0.2]
 

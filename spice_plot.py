@@ -43,8 +43,10 @@ def SpicePlot(output_plot_path, x, y_n, y_sc, y_g, y_rp, y_3v, y_lvl, y_v, y_i, 
         ax5.plot(x.get_wave(step), y_divided, color='black', linewidth=0.5)
     ax5.grid(False)
     ax5.set_xlim(left=0, right=x_max)
+    
     ax5.set_ylabel('Resistance')
 
     plt.tight_layout()
     plot_path = os.path.join(output_plot_path, 'spice_plot.png')
     plt.savefig(plot_path, dpi=500)
+    plt.show()

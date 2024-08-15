@@ -29,3 +29,4 @@ def GaussianPlot(output_plot_path, t_points, v_lvls):
     plt.tight_layout()
     plot_path = os.path.join(output_plot_path, 'gaussian_current.png')
     plt.savefig(plot_path, dpi=500)
+    plt.close()

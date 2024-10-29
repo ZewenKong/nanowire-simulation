@@ -1,0 +1,123 @@
+** SNSPDLibrary **
+
+* This library contains subckts and
+* parameters needed to model an
+* snspd. Specifically there are two
+* nanowire models that simulate the
+* superconducting nanowire's physical
+* response to a photon.
+*
+* The nanowireBCF (Basic Curve Fit)
+* model uses a group of switches
+* parallel to a variable resitor
+* to trace the i-v and pulse
+* curves of a nanowire.
+
+*************************************
+* nanowireBCF                       *
+*   basic curve-fitting-based model *
+*   of a nanowire                   *
+* gate: 1 uA in 2 ps pulse=photon   *
+*   only connect to current source  *
+* drain: one terminal of channel    *
+* source: other terminal of channel *
+*************************************
+
+.subckt nanowireBCF gate gatereturn drain source
++Lind=150n Isw={Jc*width*thickness*C}
++width=100n thickness=4n sheetRes=400
++Tc=10.5 Tsub=2 Jc=50G C=1
+  * Jc at T=Tsub in units of amps/m2
+  * sheetRes has units of ohms/sq
+  * Tc is critical temp and has units of K
+  * Tsub is substrate temp and has units of K
+  * C is constrition factor
+
+* Dimensions
+.PARAM length={width*Lind/inductivity}
+  * length = 285 um
+.PARAM squares={length/width}
+  * squares = 2852
+
+* Thermal Parameters
+.PARAM kappa = 0.108
+  * thermal conductivity
+  * in W/m K
+.PARAM heatCapacity = 4400
+  * heat capacity per unit
+  * volume in J/m^3 K
+.PARAM hc = 50k
+  * hc is the thermal conductivity
+  * of the surface, units of W/m^2 K
+
+* Electrical/Superconducting Parameters
+.PARAM inductivity = {1.38p*sheetRes/Tc}
+  * inductivity=5.26e-11 (H/square)
+.PARAM  minSquares = 2
+  * # of squares for min resistance
+.PARAM maxSquares = 10
+  * units of ohms/square
+.PARAM psi={sheetRes*(Jc*thickness)**2 /(hc*(Tc-Tsub))}
+  * psi is the Stekly parameter.
+  * arount 37.6
+.PARAM f={sqrt(2/psi)}
+  * quantify hysteresis of Ihs vs Isw (0.23)
+.PARAM Ihs={f*Isw}
+  * hotspot current level (4.6 uA)
+
+* Unitless Parameters
+.PARAM gain={10}
+  * factor photon signal gets multiplied by
+.PARAM epsilon = {0.01}
+  * provides margins for switching
+
+** MAIN CIRCUIT **
+
+* channel inductor
+L1 drain N1 Flux=({Lind}/(2.0*cos(0.67*asin(0.6*x/{Isw}))-1))*x Rser = 1e-10
+
+* photodetection-event current sensor
+V1 N1 N2 0
+
+* photodetection event current
+B2 N2 N1 I=IF(I(V1)>0,gain*I(R3),-gain*I(R3))
+
+* hotspot plateau current source
+B1 N2 source I=IF(v(n2,source)>0,Ihs,-Ihs)
+
+* hotspot limiting resistor (4000)
+R2 N2 source {maxSquares*sheetRes}
+
+* gate input resistor
+R3 gate gatereturn 1
+
+** current sense switch (detects photon arrival) **
+
+* actuates in the i>0 range
+W1 N2 N3 V1 currentSwitch OFF
+* actuates in the i<0 range
+W2 N3 N4 V1 negCurrentSwitch ON
+
+.PARAM hiIthresh = {Isw}
+  * high current thresh = 20 uA
+.PARAM loIthresh = {Isw *(f+epsilon)}
+  * low current thresh = 4.8 uA
+
+* model goes normal above hiIthresh and resets below loIThresh
+.model currentSwitch CSW(Ron=1e9 Roff=.01 It={(hiIthresh+loIthresh)/2} Ih={(hiIthresh-loIthresh)/2})
+* model goes normal below -hiIthresh and resets above -loIthresh
+.model negCurrentSwitch CSW(Ron=.01 Roff=1e9 It={-(hiIthresh+loIthresh)/2} Ih={(hiIthresh-loIthresh)/2})
+
+
+** voltage sense switchs (GENERALLY NOT USED)**
+
+* actuates in the v>0 range
+S1 N4 N5 N2 source voltageSwitch OFF
+* actuates in the v<0 range
+S2 N5 source N2 source negVoltageSwitch ON
+
+.PARAM Vthresh={minSquares*sheetRes*Ihs}
+.model voltageSwitch SW(Ron=1e9 Roff=.01 Vt={Vthresh} Vh=0)
+.model negVoltageSwitch SW(Ron=.01 Roff=1e9 Vt={-Vthresh} Vh=0)
+
+.ends nanowireBCF
